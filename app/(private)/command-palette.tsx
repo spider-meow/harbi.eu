@@ -50,6 +50,12 @@ const COMMANDS: Command[] = [
     keywords: "rembg background remove png cutout",
   },
   {
+    id: "hold",
+    label: "Hold · heavy files",
+    href: "/hold",
+    keywords: "dropbox files upload vault zip pdf images",
+  },
+  {
     id: "convert",
     label: "Convert · image formats",
     href: "/convert",

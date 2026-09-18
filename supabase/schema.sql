@@ -346,3 +346,48 @@ create policy "feed_items: auth update read" on public.feed_items
   to authenticated
   using (true)
   with check (true);
+
+-- Hold (private heavy-file vault). Incremental script: supabase/hold.sql
+create table if not exists public.hold_files (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references auth.users (id) on delete cascade,
+  name text not null,
+  mime text not null default 'application/octet-stream',
+  size_bytes bigint not null check (size_bytes >= 0),
+  storage_path text not null,
+  created_at timestamptz not null default now(),
+  unique (storage_path)
+);
+
+create index if not exists hold_files_user_created_idx
+  on public.hold_files (user_id, created_at desc);
+
+alter table public.hold_files enable row level security;
+
+create policy "hold_files: owner read" on public.hold_files
+  for select using (auth.uid() = user_id);
+create policy "hold_files: owner write" on public.hold_files
+  for insert with check (auth.uid() = user_id);
+create policy "hold_files: owner delete" on public.hold_files
+  for delete using (auth.uid() = user_id);
+
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('hold', 'hold', false, 26843545600, null)
+on conflict (id) do nothing;
+
+create policy "hold: owner read"
+  on storage.objects for select
+  using (bucket_id = 'hold' and (storage.foldername(name))[1] = auth.uid()::text);
+
+create policy "hold: owner insert"
+  on storage.objects for insert
+  with check (bucket_id = 'hold' and (storage.foldername(name))[1] = auth.uid()::text);
+
+create policy "hold: owner update"
+  on storage.objects for update
+  using (bucket_id = 'hold' and (storage.foldername(name))[1] = auth.uid()::text)
+  with check (bucket_id = 'hold' and (storage.foldername(name))[1] = auth.uid()::text);
+
+create policy "hold: owner delete"
+  on storage.objects for delete
+  using (bucket_id = 'hold' and (storage.foldername(name))[1] = auth.uid()::text);

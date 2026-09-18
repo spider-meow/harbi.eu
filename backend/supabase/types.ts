@@ -277,6 +277,36 @@ export type Database = {
         };
         Relationships: [];
       };
+      hold_files: {
+        Row: {
+          id: string;
+          user_id: string;
+          name: string;
+          mime: string;
+          size_bytes: number;
+          storage_path: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          name: string;
+          mime?: string;
+          size_bytes: number;
+          storage_path: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          name?: string;
+          mime?: string;
+          size_bytes?: number;
+          storage_path?: string;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
       site_settings: {
         Row: {
           id: string;
@@ -552,6 +582,7 @@ export type Message = Database["public"]["Tables"]["messages"]["Row"];
 export type Attachment = Database["public"]["Tables"]["attachments"]["Row"];
 export type Vehicle = Database["public"]["Tables"]["vehicles"]["Row"];
 export type BgRemoval = Database["public"]["Tables"]["bg_removals"]["Row"];
+export type HoldFileRow = Database["public"]["Tables"]["hold_files"]["Row"];
 export type SiteSettings = Database["public"]["Tables"]["site_settings"]["Row"];
 export type RelationshipStatus = SiteSettings["relationship_status"];
 

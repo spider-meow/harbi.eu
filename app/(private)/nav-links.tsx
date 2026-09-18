@@ -8,6 +8,7 @@ const links = [
   { href: "/today", label: "/today" },
   { href: "/chat", label: "/chat" },
   { href: "/cutout", label: "/cutout" },
+  { href: "/hold", label: "/hold" },
   { href: "/convert", label: "/convert" },
   { href: "/analytics", label: "/analytics" },
   { href: "/settings", label: "/settings" },
