@@ -57,6 +57,8 @@ export async function updateSession(request: NextRequest) {
   }
 
   const privatePaths = [
+    "/notes",
+    "/news",
     "/chat",
     "/claudette",
     "/cutout",
