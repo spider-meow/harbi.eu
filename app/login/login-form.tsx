@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { createClient } from "@/frontend/supabase/client";
 import { buttonClass } from "@/frontend/components/button-variants";
 import { LouisLoginQuiz } from "./louis-login-quiz";
@@ -54,12 +53,9 @@ export function LoginForm({ louisJokeMode }: Props) {
   return (
     <main className="mx-auto flex w-full max-w-sm flex-1 flex-col justify-center gap-6 px-6 py-24">
       <div className="flex flex-col gap-1">
-        <Link
-          href="/"
-          className="font-display text-sm tracking-tight text-ink-muted transition-colors hover:text-ink"
-        >
-          ← harbi.eu
-        </Link>
+        <span className="font-display text-sm tracking-tight text-ink-muted">
+          harbi.eu
+        </span>
         <p className="mt-6 text-sm tracking-wide text-ink-faint">Sign in</p>
         <h1 className="font-display text-3xl font-medium tracking-tight text-ink">
           Welcome back

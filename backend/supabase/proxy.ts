@@ -48,6 +48,14 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(redirectUrl);
   }
 
+  // Home is disabled: "/" only leads to the login (or /today when signed in).
+  if (request.nextUrl.pathname === "/") {
+    const target = request.nextUrl.clone();
+    target.pathname = user ? "/today" : "/login";
+    target.search = "";
+    return NextResponse.redirect(target);
+  }
+
   const privatePaths = [
     "/chat",
     "/claudette",
