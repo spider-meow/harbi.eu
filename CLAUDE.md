@@ -87,6 +87,7 @@ Site perso combinant un portfolio public (destiné aux recruteurs) et une zone p
 - [x] SEO : sitemap.xml (route handler `app/sitemap.xml/route.ts`, pas MetadataRoute — évite Content-Disposition qui casse GSC), robots.txt, metadata Arthur Reichard, JSON-LD Person
 - [ ] GSC : resoumettre `https://harbi.eu/sitemap.xml` (ou `…/sitemap.xml?v=2` / trailing slash pour bust le cache d’erreur) sur la propriété apex `harbi.eu`
 ## Notes
+- Home désactivée : `/` redirige vers `/login` (ou `/today` si connecté) ; `/notes` et `/news` privés ; robots disallow all, sitemap supprimé. Le code landing reste dans `app/(public)/`.
 - Pas de todo/projects / market / garage UI (retirés volontairement).
 - Mettre à jour cette section à chaque session.
 - Hold : le SQL seul ne suffit pas — il faut aussi le **Global file size limit**
